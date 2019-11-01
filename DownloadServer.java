@@ -31,7 +31,7 @@ public class DownloadServer{
                     BufferedInputStream bis = new BufferedInputStream(is);
                     int len = 0;
                     byte[] allArray = new byte[1024];
-                    System.out.println("len = " + len);
+                    //System.out.println("len = " + len);
                     int randomName = new Random().nextInt(10000);
                     FileOutputStream fos = new FileOutputStream(randomName + ".change");
                     while ((len = bis.read(allArray)) != -1) {
@@ -42,14 +42,14 @@ public class DownloadServer{
                     byte[] bytes10 = new byte[10];
                     bis2.read(bytes10);
                     String temp = new String(bytes10).split("\\.")[0];
-                    System.out.println(temp);
+                    //System.out.println(temp);
                     bis2.close();
                     BufferedInputStream bis3 = new BufferedInputStream(new FileInputStream(randomName + ".change"));
                     FileOutputStream fos2 = new FileOutputStream(randomName + "." + temp);
                     BufferedOutputStream bos2 = new BufferedOutputStream(fos2);
                     int len2 = 0;
                     byte[] outputArray = new byte[1024 * 8];
-                    bis3.skip(4);
+                    bis3.skip(temp.length()+1);
                     while ((len2 = bis3.read(outputArray)) != -1) {
                         bos2.write(outputArray, 0, len2);
                     }
@@ -58,14 +58,10 @@ public class DownloadServer{
                     bis3.close();
                     bos2.close();
                     file3.delete();
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }).start();
-
         }
-
     }
 }

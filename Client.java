@@ -14,7 +14,7 @@ public class Client{
 /////////////////////////////////////////////////////////////////////
         OutputStream os = ss.getOutputStream();
         BufferedOutputStream bos = new BufferedOutputStream(os);
-        File file = new File("5.png");
+        File file = new File("a.txt123");
         String name = file.getName().split("\\.")[1];
         name = name + ".";
         int len = 0;
