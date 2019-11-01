@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -44,10 +45,9 @@ public class DownloadServer{
 
                     while ((len = in.read(buf)) != -1) {
                         fos.write(buf, 0, len);//这里就不受制于数组大小,可以改进
+                                               //用arraylist装数组 再慢慢操作
                     }
                      */
-
-
                     //客户端要shutdownoutpu 没结束符
                     System.out.println("Arrays.toString(allArray) = " + Arrays.toString(allArray));
                     byte[] newArray = new byte[newLen];

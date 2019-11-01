@@ -26,7 +26,9 @@ public class Client{
         byte[] bytearray = new byte[1024 * 100];//受限于这里数组大小
         FileInputStream fis = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(fis);
-        while ((len = bis.read(bytearray)) != -1) {
+        while ((len = bis.read(bytearray)) != -1) {//这里要循环全部的数据
+                                                    // long skip​(long n) 跳过并从输入流中丢弃 n个字节的数据。
+                                                    //新思路 将 type+内容全部上传到服务器的.td!文件中,解析此文件 然后本地复制skip前面几个
             newLen = len;
         }
         byte[] newArray = new byte[newLen + nameArray.length];
