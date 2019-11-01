@@ -5,9 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.Random;
 
 public class DownloadServer{
     public static void main(String[] args) throws IOException{
@@ -21,49 +20,44 @@ public class DownloadServer{
                 try {
                     OutputStream os = accept.getOutputStream();
                     OutputStreamWriter osw = new OutputStreamWriter(os);
-
                     BufferedWriter bw = new BufferedWriter(osw);
-
                     DateFormat instance = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                     String format = instance.format(new Date());
                     System.out.println(hostAddress + " 登录 " + format + " 线程: " + name);
                     bw.write("欢迎登录 " + format);
                     bw.newLine();
                     bw.flush();
-
                     InputStream is = accept.getInputStream();
                     BufferedInputStream bis = new BufferedInputStream(is);
                     int len = 0;
-                    int newLen = 0;
-                    byte[] allArray = new byte[1024 * 100];//受限于这里数组大小
-                    //len = bis.read(allArray);
+                    byte[] allArray = new byte[1024];
                     System.out.println("len = " + len);
+                    int randomName = new Random().nextInt(10000);
+                    FileOutputStream fos = new FileOutputStream(randomName + ".change");
                     while ((len = bis.read(allArray)) != -1) {
-                        newLen = len;
+                        fos.write(allArray, 0, len);
                     }
-                    /*
-
-                    while ((len = in.read(buf)) != -1) {
-                        fos.write(buf, 0, len);//这里就不受制于数组大小,可以改进
-                                               //用arraylist装数组 再慢慢操作
-                    }
-                     */
-                    //客户端要shutdownoutpu 没结束符
-                    System.out.println("Arrays.toString(allArray) = " + Arrays.toString(allArray));
-                    byte[] newArray = new byte[newLen];
-                    System.arraycopy(allArray, 0, newArray, 0, newLen);
-                    char temp = (char) newArray[newArray.length - 1];
-                    int num = Integer.parseInt(String.valueOf(temp));
-                    System.out.println("num = " + num);
-                    String type = new String(newArray, newArray.length - num - 1, num);
-                    System.out.println("type = " + type);
-                    byte[] outArray = new byte[newLen - num - 1];
-                    System.out.println("outArray.length = " + outArray.length);
-                    System.arraycopy(newArray, 0, outArray, 0, outArray.length);
-                    System.out.println("Arrays.toString(outArray) = " + Arrays.toString(outArray));
-                    FileOutputStream fos = new FileOutputStream(System.currentTimeMillis() + "." + type);
-                    fos.write(outArray);
                     fos.close();
+                    BufferedInputStream bis2 = new BufferedInputStream(new FileInputStream(randomName + ".change"));
+                    byte[] bytes10 = new byte[10];
+                    bis2.read(bytes10);
+                    String temp = new String(bytes10).split("\\.")[0];
+                    System.out.println(temp);
+                    bis2.close();
+                    BufferedInputStream bis3 = new BufferedInputStream(new FileInputStream(randomName + ".change"));
+                    FileOutputStream fos2 = new FileOutputStream(randomName + "." + temp);
+                    BufferedOutputStream bos2 = new BufferedOutputStream(fos2);
+                    int len2 = 0;
+                    byte[] outputArray = new byte[1024 * 8];
+                    bis3.skip(4);
+                    while ((len2 = bis3.read(outputArray)) != -1) {
+                        bos2.write(outputArray, 0, len2);
+                    }
+                    System.out.println("写入了 " + randomName + "." + temp);
+                    File file3 = new File(randomName + "." + "change");
+                    bis3.close();
+                    bos2.close();
+                    file3.delete();
 
                 } catch (IOException e) {
                     e.printStackTrace();
