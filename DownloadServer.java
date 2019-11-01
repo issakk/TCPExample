@@ -35,7 +35,7 @@ public class DownloadServer{
                     int randomName = new Random().nextInt(10000);
                     FileOutputStream fos = new FileOutputStream(randomName + ".change");
                     while ((len = bis.read(allArray)) != -1) {
-                        fos.write(allArray, 0, len);
+                        fos.write(allArray, 0, len);//测试git合拼
                     }
                     fos.close();
                     BufferedInputStream bis2 = new BufferedInputStream(new FileInputStream(randomName + ".change"));
