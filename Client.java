@@ -16,14 +16,14 @@ public class Client{
 /////////////////////////////////////////////////////////////////////
         OutputStream os = ss.getOutputStream();
         BufferedOutputStream bos = new BufferedOutputStream(os);
-        File file = new File("2.png");
+        File file = new File("1.png");
         String name = file.getName().split("\\.")[1];
         name = name + "" + name.length();
         byte[] nameArray = name.getBytes();
         System.out.println("name = " + name);
         int len = 0;
         int newLen = 0;
-        byte[] bytearray = new byte[1024 * 8];
+        byte[] bytearray = new byte[1024 * 100];
         FileInputStream fis = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(fis);
         while ((len = bis.read(bytearray)) != -1) {
@@ -39,6 +39,7 @@ public class Client{
 
         bos.write(newArray);
         bos.flush();
+        ss.shutdownOutput();
 
     }
 }

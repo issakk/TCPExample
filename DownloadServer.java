@@ -34,25 +34,28 @@ public class DownloadServer{
                     BufferedInputStream bis = new BufferedInputStream(is);
                     int len = 0;
                     int newLen = 0;
-                    byte[] allArray = new byte[1024 * 8];
+                    byte[] allArray = new byte[1024 * 100];
                     //len = bis.read(allArray);
                     System.out.println("len = " + len);
-//                    while ((len = bis.read(allArray)) != -1) {
-//                        newLen = len;
-//                    }
+                    while ((len = bis.read(allArray)) != -1) {
+                        newLen = len;
+                    }
+                    //客户端要shutdownoutpu 没结束符
                     System.out.println("Arrays.toString(allArray) = " + Arrays.toString(allArray));
-                    byte[] newArray = new byte[len];
-                    System.arraycopy(allArray, 0, newArray, 0, len);
+                    byte[] newArray = new byte[newLen];
+                    System.arraycopy(allArray, 0, newArray, 0, newLen);
                     char temp = (char) newArray[newArray.length - 1];
                     int num = Integer.parseInt(String.valueOf(temp));
                     System.out.println("num = " + num);
                     String type = new String(newArray, newArray.length - num - 1, num);
                     System.out.println("type = " + type);
-                    byte[] outArray = new byte[len - num - 1];
+                    byte[] outArray = new byte[newLen - num - 1];
+                    System.out.println("outArray.length = " + outArray.length);
                     System.arraycopy(newArray, 0, outArray, 0, outArray.length);
                     System.out.println("Arrays.toString(outArray) = " + Arrays.toString(outArray));
 
                     FileOutputStream fos = new FileOutputStream(System.currentTimeMillis() + "." + type);
+
                     fos.write(outArray);
                     fos.close();
 
