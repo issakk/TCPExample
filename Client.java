@@ -23,7 +23,7 @@ public class Client{
         System.out.println("name = " + name);
         int len = 0;
         int newLen = 0;
-        byte[] bytearray = new byte[1024 * 100];
+        byte[] bytearray = new byte[1024 * 100];//受限于这里数组大小
         FileInputStream fis = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(fis);
         while ((len = bis.read(bytearray)) != -1) {

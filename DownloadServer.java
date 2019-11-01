@@ -34,7 +34,7 @@ public class DownloadServer{
                     BufferedInputStream bis = new BufferedInputStream(is);
                     int len = 0;
                     int newLen = 0;
-                    byte[] allArray = new byte[1024 * 100];
+                    byte[] allArray = new byte[1024 * 100];//受限于这里数组大小
                     //len = bis.read(allArray);
                     System.out.println("len = " + len);
                     while ((len = bis.read(allArray)) != -1) {
@@ -53,20 +53,15 @@ public class DownloadServer{
                     System.out.println("outArray.length = " + outArray.length);
                     System.arraycopy(newArray, 0, outArray, 0, outArray.length);
                     System.out.println("Arrays.toString(outArray) = " + Arrays.toString(outArray));
-
                     FileOutputStream fos = new FileOutputStream(System.currentTimeMillis() + "." + type);
-
                     fos.write(outArray);
                     fos.close();
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-
             }).start();
-
 
         }
 
