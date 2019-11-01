@@ -40,6 +40,14 @@ public class DownloadServer{
                     while ((len = bis.read(allArray)) != -1) {
                         newLen = len;
                     }
+                    /*
+
+                    while ((len = in.read(buf)) != -1) {
+                        fos.write(buf, 0, len);//这里就不受制于数组大小,可以改进
+                    }
+                     */
+
+
                     //客户端要shutdownoutpu 没结束符
                     System.out.println("Arrays.toString(allArray) = " + Arrays.toString(allArray));
                     byte[] newArray = new byte[newLen];
